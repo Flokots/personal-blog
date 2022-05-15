@@ -1,2 +1,4 @@
-<h1> {{quote.author}}</h1>
-<h3>{{quote.quote}}</h3>
+{% import 'macros.html' as macro %}
+<div>
+  {{macro.displayQuote(quote)}}
+</div>
