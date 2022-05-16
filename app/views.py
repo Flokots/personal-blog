@@ -10,8 +10,8 @@ def index():
   '''
   
   quote = get_quote()
-  print(quote)
-  return render_template('index.html', quote=quote)
+  title = "Personal Blog"
+  return render_template('index.html', quote=quote, title=title)
 
   
 @app.route('/blog/<int:id>')
