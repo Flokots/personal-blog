@@ -25,7 +25,18 @@
 {% block content %}
 
 <body>
-  <!-- Footer-->
+  <header class="masthead" style="background-image: url('../../static/assets/img/profile.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+          <div class="page-heading">
+            <h1>Profile</h1>
+            <span class="subheading">A little bit about me.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
   <div class="container">
     <div class="row">
       <!--Displaying username-->
@@ -48,11 +59,11 @@
       </div>
     </div>
     {% if user == current_user %}
-      <form action="{{url_for('main.update_pic', uname=user.username)}}" method="post" enctype="multipart/form-data">
-        <input type="file" name="photo" class="form-control" required>
-        <input type="submit">
-      </form>
-      <a href="{{url_for('main.update_profile', uname=user.username)}}">Edit Profile</a>
+    <form action="{{url_for('main.update_pic', uname=user.username)}}" method="post" enctype="multipart/form-data">
+      <input type="file" name="photo" class="form-control" required>
+      <input type="submit">
+    </form>
+    <a href="{{url_for('main.update_profile', uname=user.username)}}">Edit Profile</a>
     {% endif %}
   </div>
   <footer class="border-top">
