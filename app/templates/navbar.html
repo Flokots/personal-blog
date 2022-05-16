@@ -12,6 +12,14 @@
               <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li>
               <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
           </ul>
+          <ul class="nav navbar-nav navbar-right">
+              {% if current_user.is_authenticated %}
+              <li style="color: black; padding: 15px;">{{current_user.username}}</li>
+              <li><a href="{{url_for('auth.logout')}}">Sign Out</a></li>
+              {% else %}
+              <li><a href="{{url_for('auth.login')}}">Sign In</a></li>
+              {% endif %}
+          </ul>
       </div>
   </div>
 </nav>
