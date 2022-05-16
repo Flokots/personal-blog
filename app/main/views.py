@@ -1,9 +1,12 @@
 from flask import render_template
 from app import app
-from .request import get_quote
+
+from . import main
+from ..requests import get_quote
+from ..models import Quote
 
 
-@app.route('/')
+@main.route('/')
 def index():
   '''
   View root page function that returns the index page and its data
@@ -14,7 +17,7 @@ def index():
   return render_template('index.html', quote=quote, title=title)
 
   
-@app.route('/blog/<int:id>')
+@main.route('/blog/<int:id>')
 def blog(id):
   '''
   View blog page function that returns the blog details page and its data
