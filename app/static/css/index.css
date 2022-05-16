@@ -1,0 +1,20 @@
+.quote-text{
+  text-align: center;
+  width: 450px;
+  height: auto;
+  clear: both;
+  font-weight: 500;
+  font-size: 1.75rem;
+}
+.quote-icon {
+  font-size: 1em;
+  margin-right: 0.4em;
+}
+.quote-author {
+  width: 450px;
+  height: auto;
+  clear: both;
+  padding-top: 20px;
+  font-size: 1em;
+  text-align: right;
+}

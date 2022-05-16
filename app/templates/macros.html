@@ -1,5 +1,9 @@
 {% macro displayQuote(quote)%}
-<h3>{{quote.quote}}</h3>
-<h5>{{quote.author}}</h5>
-<p>{{quote.permalink}}</p>
+<div class="quote-text">
+  <i class="fa fa-quote-left quote-icon"></i>
+  <span id="quote-text">{{quote.quote}} </span>
+</div>
+<div class="quote-author">
+  -<span id="author">{{quote.author}}</span>
+</div>
 {% endmacro%}
