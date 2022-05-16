@@ -14,10 +14,10 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
               {% if current_user.is_authenticated %}
-              <li style="color: black; padding: 15px;">{{current_user.username}}</li>
-              <li><a href="{{url_for('auth.logout')}}">Sign Out</a></li>
+              <li style="color: black; padding: 15px;"><b>{{current_user.username}}</b></li>
+              <li><a href="{{url_for('auth.logout')}}"><b>Sign Out</b></a></li>
               {% else %}
-              <li><a href="{{url_for('auth.login')}}">Sign In</a></li>
+              <li><a href="{{url_for('auth.login')}}"><b>Sign In</b></a></li>
               {% endif %}
           </ul>
       </div>
