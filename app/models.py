@@ -1,5 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from datetime import datetime
 
 from . import db
 from . import login_manager
@@ -29,6 +30,8 @@ class User(UserMixin, db.Model):
   bio = db.Column(db.String(255))
   profile_pic_path = db.Column(db.String())
   role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+  blogs = db.relationship('Blog', backref = 'writer', lazy='dynamic')
+  comments = db.relationship('Comment', backref = 'commenter', lazy='dynamic')
   pass_secure = db.Column(db.String(255))
 
   @property
@@ -49,13 +52,57 @@ class User(UserMixin, db.Model):
 
 
 class Role(db.Model):
+  '''
+  Role class to define blog objects
+  '''
   __tablename__ = 'roles'
 
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(255))
   users = db.relationship('User', backref='role', lazy='dynamic')
-  
-
 
   def __repr__(self):
     return f'{self.name}'
+
+
+class Blog(db.Model):
+  '''
+  Blog class to define blog objects
+  '''
+  __tablename__ = 'blogs'
+
+  id = db.Column(db.Integer, primary_key=True)
+  name = db.Column(db.String(255), nullable=False)
+  content = db.Column(db.Text, nullable=False)
+  urlToImage = db.Column(db.String())
+  posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+  comments = db.relationship('Comment', backref = 'blog', lazy='dynamic')
+  user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+  def __repr__(self):
+    return f'{self.name}'
+
+
+class Comment(db.Model):
+  '''
+  Comment class to define Comment Objects
+  '''
+  __tablename__ = 'comments'
+
+  id = db.Column(db.Integer, primary_key = True)
+  name = db.Column(db.String(255))
+  user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+  blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
+  posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+
+  def save_comment(self):
+    db.session.add(self)
+    db.session.commit()
+
+  @classmethod
+  def get_comment(cls, id):
+    comments = Comment.query.filter_by(blog_id = id).all()
+
+    return comments
+
