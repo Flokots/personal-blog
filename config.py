@@ -5,6 +5,7 @@ class Config:
   General configuration parent class
   '''
   QUOTES_BASE_URL = 'http://quotes.stormconsultancy.co.uk/random.json'
+  SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://flo:flo@localhost:5433/personal_blog'
 
 
 class ProdConfig(Config):
