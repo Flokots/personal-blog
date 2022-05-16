@@ -1,3 +1,3 @@
-SECRET_KEY = '<Flask WTF Secret Key>'
+export SECRET_KEY='<Flask WTF Secret Key>'
 
 python manage.py server
