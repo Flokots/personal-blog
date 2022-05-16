@@ -1,10 +1,10 @@
 from flask import render_template, redirect, url_for, abort, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from . import main
 from ..requests import get_quote
-from ..models import Quote, User
-from .forms import UpdateProfile
+from ..models import Quote, User, Blog, Comment
+from .forms import UpdateProfile, AddBlog, CommentForm
 from .. import db, photos
 
 
@@ -37,13 +37,6 @@ def contact():
   return render_template('contact.html', title=title)
 
 
-@main.route('/blog/<int:id>')
-def blog(id):
-  '''
-  View blog page function that returns the blog details page and its data
-  '''
-  return render_template('blog.html', id=id)
-
 
 @main.route('/user/<uname>')
 def profile(uname):
@@ -66,6 +59,7 @@ def update_profile(uname):
 
   if form.validate_on_submit():
     user.bio = form.bio.data
+    user.role = "Writer"
 
     db.session.add(user)
     db.session.commit()
@@ -86,5 +80,58 @@ def update_pic(uname):
   return redirect(url_for('main.profile', uname=uname))
 
 
+
+@main.route('/new/blog', methods=['GET', 'POST'])
+@login_required
+def new_blog():
+
+  form = AddBlog()
+
+  if form.validate_on_submit():
+    user_id = current_user.id
+    print(user_id)
+    blog = Blog(name=form.name.data, content=form.content.data, user_id=user_id)
+    db.session.add(blog)
+    db.session.commit()
+
+    name = form.name.data
+    return redirect(url_for('main.blog', name=name))
+  
+  title="Add Blog"
+  return render_template('new_blog.html',blog_form=form, title=title)
+
+
+@main.route('/blog/<int:blog_id>/comment', methods=['GET', 'POST'])
+@login_required
+def new_comment(blog_id):
+  blog_id = blog_id
+  form = CommentForm()
+  if form.validate_on_submit():
+    new_comment = Comment(name = form.name.data, blog_id=blog_id, user_id=current_user.id)
+    db.session.add(new_comment)
+    db.session.commit()
+    
+    return redirect(url_for('main.blog'))
+
+  title=title
+  return render_template('new_comment.html', form=form, title=title)
+
+
+
+
+
+
+
+
+
+
+
+
+@main.route('/blog/<name>')
+def blog(id):
+  '''
+  View blog page function that returns the blog details page and its data
+  '''
+  return render_template('blog.html', id=id)
 
   

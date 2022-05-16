@@ -7,3 +7,32 @@
   -<span id="author">{{quote.author}}</span>
 </div>
 {% endmacro%}
+
+<!--Display blogs macro-->
+{% macro displayBlogs(blogs) %}
+{% for blog in blogs %}
+<!-- Post preview-->
+<div class="blog-preview">
+  <a href="blog.html">
+      <h2 class="blog-title">{{blog.name}}</h2>
+      <h3 class="blog-subtitle">{{blog.description | truncate(40)}}</h3>
+  </a>
+  <p class="blog-meta">
+      Posted by
+      <a href="#!">{{blog.writer}}</a>
+      {{blog.posted}}
+  </p>
+</div>
+<!-- Divider-->
+<hr class="my-4" />
+{% endfor %}
+{% endmacro %}
+
+<!--Display blogs Comments-->
+{% macro displayComments(comments) %}
+{% for comment in comments %}
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 comment-card">
+ <h4> {{comment.name| truncate(30)}} </h4>
+</div>
+{% endfor %}
+{% endmacro %}
