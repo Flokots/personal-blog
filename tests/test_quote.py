@@ -1,6 +1,5 @@
 import unittest
-from models import quote
-Quote = quote.Quote
+from app.models import Quote
 
 class QuoteTest(unittest.TestCase):
   '''
@@ -27,8 +26,3 @@ class QuoteTest(unittest.TestCase):
     self.assertEqual(self.new_quote.quote, "Measuring programming progress by lines of code is like measuring aircraft building progress by weight.")
     self.assertEqual(self.new_quote.permalink, "http://quotes.stormconsultancy.co.uk/quotes/6")
   
-  
-
-
-if __name__ == '__main__':
-  unittest.main()
