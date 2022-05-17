@@ -1,3 +1,4 @@
+from crypt import methods
 from flask import render_template, redirect, url_for, abort, request
 from flask_login import login_required, current_user
 
@@ -98,7 +99,7 @@ def new_blog():
     return redirect(url_for('main.blog', name=name))
   
   title="Add Blog"
-  return render_template('new_blog.html',blog_form=form, title=title)
+  return render_template('new_blog.html', form=form, title=title)
 
 
 @main.route('/blog/<int:blog_id>/comment', methods=['GET', 'POST'])
@@ -110,28 +111,23 @@ def new_comment(blog_id):
     new_comment = Comment(name = form.name.data, blog_id=blog_id, user_id=current_user.id)
     db.session.add(new_comment)
     db.session.commit()
-    
-    return redirect(url_for('main.blog'))
 
-  title=title
+    blog= Blog.query.filter_by(id=blog_id).first()
+    blog_name = blog.name
+    
+    
+    return redirect(url_for('main.blog', name=blog_name))
+
+  title="Comment"
   return render_template('new_comment.html', form=form, title=title)
 
 
-
-
-
-
-
-
-
-
-
-
 @main.route('/blog/<name>')
-def blog(id):
+def blog(name):
   '''
-  View blog page function that returns the blog details page and its data
+  View blog page function that returns the blog page details and its data
   '''
-  return render_template('blog.html', id=id)
+  blog = Blog.query.filter_by(name=name).first()
+  comments = blog.comments
+  return render_template('blog.html', blog=blog, comments=comments)
 
-  

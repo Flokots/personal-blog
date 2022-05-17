@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% import "bootstrap/wtf.html" as wtf %}
+{% import 'macros.html' as macro %}
 
 <!--Styles block -->
 {% block styles %}
@@ -26,27 +27,49 @@
 {% block content %}
 
 <body>
-  <header class="masthead" style="background-image: url('../../static/assets/img/new-post.jpg')">
+  <!-- Page Header-->
+  <header class="masthead" style="background-image: url('assets/img/post-bg.jpg')">
     <div class="container position-relative px-4 px-lg-5">
-      <div class="row gx-4 gx-lg-5 justify-content-center">
-        <div class="col-md-10 col-lg-8 col-xl-7">
-          <div class="page-heading">
-            <h1>Comment</h1>
-            <span class="subheading">Jot down your thoughts.</span>
-          </div>
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h2 class="subheading">{{blog.name}}</h2>
+                    <span class="meta">
+                        Posted by
+                        <a href="#!">{{blog.writer}}</a>
+                        {{blog.posted}}
+                    </span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </header>
-  <!--comment section -->
+</header>
+<!-- Post Content-->
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+              {{blog.description}}
+                <p>
+                    Written by {{blog.writer}}
+                </p>
+            </div>
+        </div>
+    </div>
+</article>
+<!--Comment section-->
+<div class="container">
   <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-      {{wtf.quick_form(form)}}
-    </div>
-    <div class="col-md-2"></div>
+    <h3 class="text-center">Comments</h3>
+    {% if comments %}
+    {{macro.displayComments(comments)}}
+    {% else %}
+    <h3 class="text-center"> This blog has no comments :(</h3>
+    <a class="btn btn-success btn-lg text-center" href="/blog/{{blog.id}}/comment">Leave a Comment</a>
+    {% endif %}
   </div>
-
+</div>
+ 
   <!--Footer-->
   <footer class="border-top">
     <div class="container px-4 px-lg-5">
