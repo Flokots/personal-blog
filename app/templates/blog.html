@@ -69,7 +69,7 @@
           <p class="text-center"><b>{{comment.commenter}}</b> says:</p>
         </div>
         <div class="card-body">
-          <p class="text-center"> {{comment.name| truncate(30)}} </p>
+          <p class="text-center"> {{comment.name}} </p>
         </div>
         <div class="card-footer text-muted">
           {% if user.role == "Author" %}
