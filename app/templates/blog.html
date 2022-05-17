@@ -51,7 +51,7 @@
             <div class="col-md-10 col-lg-8 col-xl-7">
               {{format_blog | safe}}
                 <p>
-                    Written by {{blog.writer}}
+                    Written by <b>{{blog.writer}}</b>
                 </p>
             </div>
         </div>
@@ -60,9 +60,29 @@
 <!--Comment section-->
 <div class="container">
   <div class="row">
-    <h3 class="text-center">Comments</h3>
     {% if comments %}
-    {{macro.displayComments(comments)}}
+    <h3 class="text-center">Comments</h3>
+    <div class="row">
+      {% for comment in comments %}
+      <div class="col-md-3 col-lg-3 card mb-3 comment-card">
+        <div class="card-header">
+          <p class="text-center"><b>{{comment.commenter}}</b> says:</p>
+        </div>
+        <div class="card-body">
+          <p class="text-center"> {{comment.name| truncate(30)}} </p>
+        </div>
+        <div class="card-footer text-muted">
+          {% if user.role == "Author" %}
+          <div class="d-flex justify-content-start mb-4" style="margin-top: 1em;"><a class="btn btn-primary text-uppercase" href="/delete/comment/{{comment.id}}">Delete Comment</a></div>
+          {% endif %}
+          <div>
+            <p class="quote-author">{{comment.posted.strftime('%B %-d, %Y %-I:%M')}}</p>
+          </div>
+        </div>
+          
+      </div>
+      {% endfor %}
+    </div>
     {% else %}
     <h3 class="text-center"> This blog has no comments :(</h3>
     <a class="btn btn-success btn-lg text-center" href="/blog/{{blog.id}}/comment">Leave a Comment</a>

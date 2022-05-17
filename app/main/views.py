@@ -135,7 +135,7 @@ def update_blog(name):
 
     return redirect(url_for('.blog', name=blog.name))
   title="Update Blog"
-  return render_template(url_for('new_blog.html', form=form, title=title ))
+  return render_template('new_blog.html', form=form, title=title )
 
 @main.route('/blog/<int:blog_id>/comment', methods=['GET', 'POST'])
 @login_required
@@ -163,13 +163,15 @@ def blog(name):
   View blog page function that returns the blog page details and its data
   '''
   blog = Blog.query.filter_by(name=name).first()
+  user = current_user
+  
 
   if blog is None:
     abort(404)
   
   format_blog = markdown2.markdown(blog.content, extras=["code-friendly", "fenced-code-blocks"])
-  comments = blog.comments
-  return render_template('blog.html', blog=blog, comments=comments, format_blog=format_blog)
+  comments = Comment.query.filter_by(blog_id=blog.id).all()
+  return render_template('blog.html', blog=blog, comments=comments, format_blog=format_blog,user=user)
 
 @main.route('/delete/blog/<int:blog_id>')
 def delete_blog(blog_id):
@@ -179,3 +181,12 @@ def delete_blog(blog_id):
   uname = current_user.username
 
   return redirect(url_for('main.profile', uname=uname))
+
+  
+@main.route('/delete/comment/<int:id>')
+def delete_comment(id):
+  single_comment = Comment.query.filter_by(id=id).first()
+  db.session.delete(single_comment)
+  db.session.commit()
+
+  return redirect(request.referrer)

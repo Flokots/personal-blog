@@ -10,7 +10,22 @@
 
 <!--Display blogs macro-->
 {% macro displayBlogs(blogs) %}
-
+{% for blog in blogs %}
+<!-- Post preview-->
+<div class="post-preview">
+  <a href="/blog/{{blog.name}}">
+      <h2 class="post-title">{{blog.name}}</h2>
+      <h3 class="post-subtitle">{{format_blog| safe}}</h3>
+  </a>
+  <p class="post-meta">
+      Posted by
+      <a href="#!">{{blog.writer}}</a>
+       on {{blog.posted.strftime('%Y-%m-%d')}}
+  </p>
+</div>
+<!-- Divider-->
+<hr class="my-4" />
+{% endfor %}
 {% endmacro %}
 
 <!--Display blogs Comments-->
