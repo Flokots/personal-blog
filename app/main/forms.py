@@ -16,6 +16,11 @@ class AddBlog(FlaskForm):
   submit = SubmitField('Submit')
 
 
+class UpdateBlog(FlaskForm):
+  name = StringField('Blog Name', validators=[DataRequired()])
+  content = TextAreaField('Blog content', validators=[DataRequired()])
+  submit = SubmitField('Submit')
+
 class CommentForm(FlaskForm):
   name = StringField('Comment', validators=[DataRequired()])
   submit = SubmitField('Submit')

@@ -26,7 +26,8 @@ def login():
 def register():
   form = RegistrationForm()
   if form.validate_on_submit():
-    user = User(email=form.email.data, username=form.username.data, password=form.password.data)
+    role = "Author"
+    user = User(email=form.email.data, username=form.username.data, password=form.password.data, role=role)
     db.session.add(user)
     db.session.commit()
 
@@ -42,3 +43,5 @@ def register():
 def logout():
   logout_user()
   return redirect(url_for('main.index'))
+
+

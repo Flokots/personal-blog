@@ -66,6 +66,29 @@
     <a href="{{url_for('main.update_profile', uname=user.username)}}">Edit Profile</a>
     {% endif %}
   </div>
+  <!-- My Blogs-->
+  {% if current_user.role == "Author" %}
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <h2 class="text-center">My Blogs</h2>
+      <hr class="my-4" />
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <!-- Divider-->
+        <hr class="my-4" />
+          {% for blog in blogs %}
+          {{ macro.displayBlogs(blogs)}}
+          <div class="row">
+            <a class="btn btn-primary text-uppercase" href="/blog/{{blog.name}}/update">Update Blog</a>
+            <a class="btn btn-primary text-uppercase" href="/blog/{{blog.name}}/update">Delete Blog</a>
+          </div>
+          {% endfor %}
+        {% else %}
+          <h3>You haven't written any blogs yet</h3>
+          <div class="d-flex justify-content-center mb-4"><a class="btn btn-primary text-uppercase" href="/new/blog">New Blog</a></div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
   <footer class="border-top">
     <div class="container px-4 px-lg-5">
       <div class="row gx-4 gx-lg-5 justify-content-center">

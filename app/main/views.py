@@ -5,8 +5,9 @@ from flask_login import login_required, current_user
 from . import main
 from ..requests import get_quote
 from ..models import Quote, User, Blog, Comment
-from .forms import UpdateProfile, AddBlog, CommentForm
+from .forms import UpdateProfile, AddBlog, CommentForm, UpdateBlog
 from .. import db, photos
+from ..email import mail_message
 
 
 @main.route('/')
@@ -52,11 +53,12 @@ def post():
 @main.route('/user/<uname>')
 def profile(uname):
   user = User.query.filter_by(username=uname).first()
+  role = user.role
 
   if user is None:
     abort(404)
   
-  return render_template('profile/profile.html', user=user)
+  return render_template('profile/profile.html', user=user, role=role)
 
 
 @main.route('/user/<uname>/update', methods=['GET', 'POST'])
@@ -70,12 +72,12 @@ def update_profile(uname):
 
   if form.validate_on_submit():
     user.bio = form.bio.data
-    user.role = "Writer"
+    user.role = "Author"
 
     db.session.add(user)
     db.session.commit()
 
-    return redirect(url_for('.profile', uname=user.username))
+    return redirect(url_for('.profile', uname=user.username, role=user.role))
   return render_template('profile/update.html', form=form)
 
 
@@ -111,6 +113,27 @@ def new_blog():
   title="Add Blog"
   return render_template('new_blog.html', form=form, title=title)
 
+
+@main.route('/blog/<name>/update', methods=['GET', 'POST'])
+@login_required
+def update_blog(name):
+  blog = Blog.query.filter_by(name=name).first()
+
+  if blog is None:
+    abort(404)
+
+  form = UpdateBlog()
+
+  if form.validate_on_submit():
+    blog.name = form.name.data
+    blog.content = form.name.data
+
+    db.session.add(blog)
+    db.session.commit()
+
+    return redirect(url_for('.blog', name=blog.name))
+  title="Update Blog"
+  return render_template(url_for('new_blog.html', form=form, title=title ))
 
 @main.route('/blog/<int:blog_id>/comment', methods=['GET', 'POST'])
 @login_required

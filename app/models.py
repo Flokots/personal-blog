@@ -29,7 +29,7 @@ class User(UserMixin, db.Model):
   email = db.Column(db.String(255), unique=True, index=True)
   bio = db.Column(db.String(255))
   profile_pic_path = db.Column(db.String())
-  role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+  role = db.Column(db.String(255))
   blogs = db.relationship('Blog', backref = 'writer', lazy='dynamic')
   comments = db.relationship('Comment', backref = 'commenter', lazy='dynamic')
   pass_secure = db.Column(db.String(255))
@@ -51,20 +51,6 @@ class User(UserMixin, db.Model):
   
 
 
-class Role(db.Model):
-  '''
-  Role class to define blog objects
-  '''
-  __tablename__ = 'roles'
-
-  id = db.Column(db.Integer, primary_key=True)
-  name = db.Column(db.String(255))
-  users = db.relationship('User', backref='role', lazy='dynamic')
-
-  def __repr__(self):
-    return f'{self.name}'
-
-
 class Blog(db.Model):
   '''
   Blog class to define blog objects
@@ -74,7 +60,6 @@ class Blog(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(255), nullable=False)
   content = db.Column(db.Text, nullable=False)
-  urlToImage = db.Column(db.String())
   posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
   comments = db.relationship('Comment', backref = 'blog', lazy='dynamic')
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
