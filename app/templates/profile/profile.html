@@ -78,7 +78,7 @@
         <!-- Divider-->
         <hr class="my-4" />
         {% for blog in blogs %}
-        {% if blog.writer == user.username%}
+        {% if blog.writer == current_user.username%}
         <!-- Post preview-->
         <div class="post-preview">
           <a href="/blog/{{blog.name}}">
