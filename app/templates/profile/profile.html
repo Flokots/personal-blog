@@ -67,20 +67,23 @@
     {% endif %}
   </div>
   <!-- My Blogs-->
-  {% if current_user.role == "Author" %}
+  
   <div class="container px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 justify-content-center">
+    <div class="row gx-4 gx-lg-5 justify-content-center" style="margin: 2em;">
+      {% if blogs %}
       <h2 class="text-center">My Blogs</h2>
       <hr class="my-4" />
       <div class="col-md-10 col-lg-8 col-xl-7">
         <!-- Divider-->
         <hr class="my-4" />
           {% for blog in blogs %}
+          {% if blog.writer == current_user.name %}
           {{ macro.displayBlogs(blogs)}}
           <div class="row">
             <a class="btn btn-primary text-uppercase" href="/blog/{{blog.name}}/update">Update Blog</a>
             <a class="btn btn-primary text-uppercase" href="/blog/{{blog.name}}/update">Delete Blog</a>
           </div>
+          {% endif %}
           {% endfor %}
         {% else %}
           <h3>You haven't written any blogs yet</h3>
