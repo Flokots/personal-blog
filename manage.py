@@ -6,6 +6,7 @@ from app.models import User, Blog, Comment
 
 # Creating app instance
 app = create_app('development')
+app = create_app('production')
 
 manager = Manager(app)
 manager.add_command('server', Server)
