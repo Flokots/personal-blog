@@ -27,7 +27,7 @@ class ProdConfig(Config):
   Args:
     Config: The parent configuration class with General Configuration settings
   '''
-  SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+  SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL").replace("://", "ql://", 1)
 
 
 class DevConfig(Config):
