@@ -1,0 +1,15 @@
+Cheery Greetings {{user.username}}!
+
+A new post on {{blog.name}} has just been posted.
+
+Rush to our blog and be among the first ones to read it.
+
+Enjoy reading and remember:
+
+To live outside the law, you must be honest
+
+                                   -Bob Dylan
+
+
+With love, 
+The Nightngale Personal Blog Team.
