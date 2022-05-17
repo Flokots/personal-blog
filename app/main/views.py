@@ -1,6 +1,8 @@
 from crypt import methods
 from flask import render_template, redirect, url_for, abort, request
 from flask_login import login_required, current_user
+import markdown2
+
 
 from . import main
 from ..requests import get_quote
@@ -161,6 +163,11 @@ def blog(name):
   View blog page function that returns the blog page details and its data
   '''
   blog = Blog.query.filter_by(name=name).first()
+
+  if blog is None:
+    abort(404)
+  
+  format_blog = markdown2.markdown(blog.content, extras=["code-friendly", "fenced-code-blocks"])
   comments = blog.comments
-  return render_template('blog.html', blog=blog, comments=comments)
+  return render_template('blog.html', blog=blog, comments=comments, format_blog=format_blog)
 

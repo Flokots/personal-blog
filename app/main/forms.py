@@ -12,13 +12,13 @@ class UpdateProfile(FlaskForm):
 
 class AddBlog(FlaskForm):
   name = StringField('Blog Name', validators=[DataRequired()])
-  content = TextAreaField('Blog content', validators=[DataRequired()])
+  content = TextAreaField('Blog content')
   submit = SubmitField('Submit')
 
 
 class UpdateBlog(FlaskForm):
   name = StringField('Blog Name', validators=[DataRequired()])
-  content = TextAreaField('Blog content', validators=[DataRequired()])
+  content = TextAreaField('Blog content')
   submit = SubmitField('Submit')
 
 class CommentForm(FlaskForm):
