@@ -18,12 +18,13 @@ nav {
   padding-top: 20px;
   font-size: 1em;
   text-align: right;
+  padding-bottom: 2em;
+}
+.quote-box {
+  padding: 2em;
 }
 
 .comment-card {
   margin: 1em;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19),0 6px 6px rgba(0,0,0,0.23);
 }
-/* .commenter {
-
-} */
