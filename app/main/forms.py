@@ -1,8 +1,9 @@
 
 from wtforms import ValidationError
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, SelectField
+from wtforms import StringField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired
+
 
 
 class UpdateProfile(FlaskForm):
@@ -24,3 +25,5 @@ class UpdateBlog(FlaskForm):
 class CommentForm(FlaskForm):
   name = StringField('Comment', validators=[DataRequired()])
   submit = SubmitField('Submit')
+
+  

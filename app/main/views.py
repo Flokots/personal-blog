@@ -1,5 +1,5 @@
 from crypt import methods
-from flask import render_template, redirect, url_for, abort, request
+from flask import flash, render_template, redirect, url_for, abort, request
 from flask_login import login_required, current_user
 import markdown2
 

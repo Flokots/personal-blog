@@ -2,10 +2,11 @@ from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required
 
 from ..models import User
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm, SubscriptionForm
 from ..email import mail_message
 from .. import db
 from . import auth
+import email
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -44,4 +45,17 @@ def logout():
   logout_user()
   return redirect(url_for('main.index'))
 
+
+@auth.route('/subscribe', methods=['GET', 'POST'])
+def subscribe():
+  form = SubscriptionForm()
+
+  if form.validate_on_submit():
+    user=User(email=form.email.data, username=form.username.data, role="Subscriber")
+    db.session.add(user)
+    db.session.commit()
+    mail_message("Thank you for subscribing to The Nightngale Personal Blog", "email/thank_you", user.email, user=user)
+    flash('Subscription successful')
+  title='Subscribe'
+  return render_template('auth/subscribe.html', form=form, title=title)
 
