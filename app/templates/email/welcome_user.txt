@@ -1,0 +1,18 @@
+Hello {{user.username}}
+
+Thank you for subscribing to The Nightngale Personal
+Blog. 
+
+We will keep you updated every time a new post has 
+been published. In the meantime, please enjoy reading
+the already published posts.
+
+Enjoy reading and remember:
+
+"To live outside the law, you must be honest"
+
+                                   -Bob Dylan
+
+
+With love, 
+The Nightngale Personal Blog Team.

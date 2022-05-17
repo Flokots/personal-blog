@@ -36,6 +36,7 @@ def contact():
   View page function that returns the contact page and its data
   '''
   title = "Contact"
+  
   return render_template('contact.html', title=title)
 
 @main.route('/post')
