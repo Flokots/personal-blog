@@ -1,5 +1,8 @@
 nav {
-  font-size: 1.5em !important;
+  font-size: 1.4em!important;
+}
+body{
+  font-size: 1.5em;
 }
 .quote-text{
   text-align: center;
