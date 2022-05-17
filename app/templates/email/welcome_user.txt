@@ -1,8 +1,8 @@
 Hello {{user.username}}
 
-Thank you for subscribing to The Nightngale Personal Blog. 
+Welcome to The Nightngale Personal Blog. 
 
-We will keep you updated every time a new post is published. In the meantime, please enjoy reading the already published posts.
+We hope you will find the inspiration you are looking for and have fun while at it.
 
 Enjoy reading and remember:
 
@@ -12,4 +12,4 @@ To live outside the law, you must be honest
 
 
 With love, 
-The Nightngale Personal Blog Team.
+The Nightngale Team.
