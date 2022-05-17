@@ -56,11 +56,12 @@ def post():
 def profile(uname):
   user = User.query.filter_by(username=uname).first()
   role = user.role
+  blogs = Blog.query.all()
 
   if user is None:
     abort(404)
   
-  return render_template('profile/profile.html', user=user, role=role)
+  return render_template('profile/profile.html', user=user, role=role, blogs=blogs)
 
 
 @main.route('/user/<uname>/update', methods=['GET', 'POST'])

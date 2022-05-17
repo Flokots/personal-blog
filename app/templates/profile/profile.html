@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% import 'macros.html' as macro %}
 
 <!--Styles block -->
 {% block styles %}
@@ -67,7 +68,7 @@
     {% endif %}
   </div>
   <!-- My Blogs-->
-  
+
   <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center" style="margin: 2em;">
       {% if blogs %}
@@ -76,18 +77,36 @@
       <div class="col-md-10 col-lg-8 col-xl-7">
         <!-- Divider-->
         <hr class="my-4" />
-          {% for blog in blogs %}
-          {% if blog.writer == current_user.name %}
-          {{ macro.displayBlogs(blogs)}}
-          <div class="row">
+        {% for blog in blogs %}
+        {% if blog.writer %}
+        <!-- Post preview-->
+        <div class="post-preview">
+          <a href="/blog/{{blog.name}}">
+            <h2 class="post-title">{{blog.name}}</h2>
+            <h3 class="post-subtitle">{{format_blog| safe}}</h3>
+          </a>
+          <p class="post-meta">
+            Posted by
+            <a href="#!">{{blog.writer}}</a>
+            on {{blog.posted.strftime('%Y-%m-%d')}}
+          </p>
+        </div>
+        <!-- Divider-->
+        <hr class="my-4" />
+        <div class="row">
+          <div class="col-md-6 profile-button">
             <a class="btn btn-primary text-uppercase" href="/blog/{{blog.name}}/update">Update Blog</a>
+          </div>
+          <div class="col-md-6 profile-button">
             <a class="btn btn-primary text-uppercase" href="/blog/{{blog.name}}/update">Delete Blog</a>
           </div>
-          {% endif %}
-          {% endfor %}
+        </div>
+        {% endif %}
+        {% endfor %}
         {% else %}
-          <h3>You haven't written any blogs yet</h3>
-          <div class="d-flex justify-content-center mb-4"><a class="btn btn-primary text-uppercase" href="/new/blog">New Blog</a></div>
+        <h3>You haven't written any blogs yet</h3>
+        <div class="d-flex justify-content-center mb-4"><a class="btn btn-primary text-uppercase" href="/new/blog">New
+            Blog</a></div>
       </div>
     </div>
   </div>
