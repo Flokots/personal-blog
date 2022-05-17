@@ -17,7 +17,8 @@ def index():
   
   quote = get_quote()
   title = "Personal Blog"
-  return render_template('index.html', quote=quote, title=title)
+  blogs = Blog.query.all()
+  return render_template('index.html', quote=quote, title=title, blogs=blogs)
 
 
 @main.route('/about')
@@ -36,6 +37,14 @@ def contact():
   '''
   title = "Contact"
   return render_template('contact.html', title=title)
+
+@main.route('/post')
+def post():
+  '''
+  View page function that returns the post page and its data
+  '''
+  title = "post"
+  return render_template('post.html', title=title)
 
 
 

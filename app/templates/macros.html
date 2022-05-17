@@ -12,15 +12,15 @@
 {% macro displayBlogs(blogs) %}
 {% for blog in blogs %}
 <!-- Post preview-->
-<div class="blog-preview">
-  <a href="blog.html">
-      <h2 class="blog-title">{{blog.name}}</h2>
-      <h3 class="blog-subtitle">{{blog.description | truncate(40)}}</h3>
+<div class="post-preview">
+  <a href="/blog/{{blog.name}}">
+      <h2 class="post-title">{{blog.name}}</h2>
+      <h3 class="post-subtitle">{{blog.description | truncate(40)}}</h3>
   </a>
-  <p class="blog-meta">
+  <p class="post-meta">
       Posted by
       <a href="#!">{{blog.writer}}</a>
-      {{blog.posted}}
+       on {{blog.posted.strftime('%Y-%m-%d')}}
   </p>
 </div>
 <!-- Divider-->
@@ -32,7 +32,7 @@
 {% macro displayComments(comments) %}
 <div class="row">
   {% for comment in comments %}
-  <div class="col-xs-10 col-sm-3 col-md-3 col-lg-3 card mb-3 comment-card">
+  <div class="col-md-3 col-lg-3 card mb-3 comment-card">
     <div class="card-header">
       <p class="text-center"><b>{{comment.commenter}}</b> says:</p>
     </div>
