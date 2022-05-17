@@ -51,7 +51,6 @@ def post():
   return render_template('post.html', title=title)
 
 
-
 @main.route('/user/<uname>')
 def profile(uname):
   user = User.query.filter_by(username=uname).first()
@@ -172,3 +171,11 @@ def blog(name):
   comments = blog.comments
   return render_template('blog.html', blog=blog, comments=comments, format_blog=format_blog)
 
+@main.route('/delete/blog/<int:blog_id>')
+def delete_blog(blog_id):
+  single_blog = Blog.query.filter_by(id=blog_id).first()
+  db.session.delete(single_blog)
+  db.session.commit()
+  uname = current_user.username
+
+  return redirect(url_for('main.profile', uname=uname))
