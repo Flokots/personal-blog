@@ -1,6 +1,6 @@
 Cheery Greetings {{user.username}}!
 
-A new post on {{blog.name}} has just been posted.
+A new post on {{name}} has just been posted.
 
 Rush to our blog and be among the first ones to read it.
 

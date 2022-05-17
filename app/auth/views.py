@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required
 
-from ..models import User
+from ..models import User, Blog
 from .forms import LoginForm, RegistrationForm, SubscriptionForm
 from ..email import mail_message
 from .. import db
@@ -58,4 +58,17 @@ def subscribe():
     flash('Subscription successful')
   title='Subscribe'
   return render_template('auth/subscribe.html', form=form, title=title)
+
+
+@auth.route('/new/post/<name>', methods=['GET', 'POST'])
+def post_notification(name):
+    users = User.query.filter_by(role="Subscriber").all()
+    name=name
+    
+    if users:
+      for user in users:
+        email=user.email
+        mail_message("New Post Alert", "email/new_post", email, name=name, user=user)
+  
+    return redirect(url_for('main.index'))
 

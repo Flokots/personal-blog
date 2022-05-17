@@ -110,7 +110,7 @@ def new_blog():
     db.session.commit()
 
     name = form.name.data
-    return redirect(url_for('main.blog', name=name))
+    return redirect(url_for('auth.post_notification', name=name))
   
   title="Add Blog"
   return render_template('new_blog.html', form=form, title=title)
