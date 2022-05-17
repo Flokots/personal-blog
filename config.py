@@ -40,8 +40,17 @@ class DevConfig(Config):
 
   DEBUG = True
 
+class TestConfig(Config):
+  '''
+  Test configuration child class
+  Args:
+    Config: The parent configuration class with General Configuration settings
+  '''
+  SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://flo:flo@localhost:5433/blog_test'
+
 config_options = {
   'development': DevConfig,
-  'production': ProdConfig
+  'production': ProdConfig,
+  'test': TestConfig
 }
 
